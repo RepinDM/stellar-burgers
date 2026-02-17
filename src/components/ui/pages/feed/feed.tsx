@@ -8,19 +8,13 @@ import { OrdersList, FeedInfo } from '@components';
 type FeedUIProps = {
   orders: TOrder[];
   isLoading: boolean;
-  error: string | null;
 };
 
-export const FeedUI: FC<FeedUIProps> = ({ orders, isLoading, error }) => (
+export const FeedUI: FC<FeedUIProps> = ({ orders, isLoading }) => (
   <main className={styles.main}>
     <section className={styles.sectionLeft}>
       <h1 className='text text_type_main-large'>Лента заказов</h1>
-      {error ? (
-        <p className='text text_type_main-default text_color_inactive'>
-          {error}
-        </p>
-      ) : null}
-      {!error && !isLoading && orders.length === 0 ? (
+      {!isLoading && orders.length === 0 ? (
         <p className='text text_type_main-default text_color_inactive'>
           Заказы пока не поступали
         </p>

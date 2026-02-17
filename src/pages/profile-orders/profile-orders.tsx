@@ -3,7 +3,6 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import {
   selectUserOrders,
-  selectUserOrdersError,
   selectUserOrdersStatus
 } from '../../services/selectors/orders';
 import {
@@ -38,7 +37,6 @@ const isTokenExpired = (rawToken: string, skewMs = 10000) => {
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
-  const error = useSelector(selectUserOrdersError);
   const wsStatus = useSelector(selectUserOrdersStatus);
 
   useEffect(() => {
@@ -74,5 +72,5 @@ export const ProfileOrders: FC = () => {
     };
   }, [dispatch]);
 
-  return <ProfileOrdersUI orders={orders} wsStatus={wsStatus} error={error} />;
+  return <ProfileOrdersUI orders={orders} wsStatus={wsStatus} />;
 };

@@ -3,7 +3,6 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchFeed } from '../../services/slices/feed/feed-slice';
 import {
-  selectFeedError,
   selectFeedLoading,
   selectFeedOrders
 } from '../../services/selectors/feed';
@@ -15,7 +14,6 @@ export const Feed: FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectFeedOrders);
   const isLoading = useSelector(selectFeedLoading);
-  const error = useSelector(selectFeedError);
 
   useEffect(() => {
     dispatch(fetchFeed());
@@ -25,5 +23,5 @@ export const Feed: FC = () => {
     };
   }, [dispatch]);
 
-  return <FeedUI orders={orders} isLoading={isLoading} error={error} />;
+  return <FeedUI orders={orders} isLoading={isLoading} />;
 };

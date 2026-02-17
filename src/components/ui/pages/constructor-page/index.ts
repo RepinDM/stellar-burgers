@@ -1,1 +1,2 @@
-export { ConstructorPageUI } from './constructor-page';
+// Пока отдельного UI-компонента страницы не нужно.
+export {};

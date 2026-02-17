@@ -83,7 +83,18 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
+    publicPath: '/'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    runtimeChunk: 'single'
+  },
+  performance: {
+    hints: false
   },
   devServer: {
     static: path.join(__dirname, './dist'),

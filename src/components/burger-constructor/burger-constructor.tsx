@@ -1,45 +1,78 @@
-import { FC, useMemo } from 'react';
-import { TConstructorIngredient } from '@utils-types';
+import { FC, useCallback } from 'react';
+import { useLocation, useNavigate, Location } from 'react-router-dom';
 import { BurgerConstructorUI } from '@ui';
 
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  selectConstructorItems,
+  selectConstructorPrice
+} from '../../services/selectors/constructor';
+import { selectIsAuthenticated } from '../../services/selectors/user';
+import {
+  selectOrderModalData,
+  selectOrderRequest
+} from '../../services/selectors/order';
+
+import {
+  createOrder,
+  clearOrderModal
+} from '../../services/slices/order/order-slice';
+import { removeIngredient } from '../../services/slices/constructor/constructor-slice';
+
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const orderRequest = false;
+  const constructorItems = useSelector(selectConstructorItems);
+  const price = useSelector(selectConstructorPrice);
 
-  const orderModalData = null;
+  const orderRequest = useSelector(selectOrderRequest);
+  const orderModalData = useSelector(selectOrderModalData);
 
-  const onOrderClick = () => {
+  const isAuth = useSelector(selectIsAuthenticated);
+
+  const onOrderClick = useCallback(() => {
     if (!constructorItems.bun || orderRequest) return;
-  };
-  const closeOrderModal = () => {};
 
-  const price = useMemo(
-    () =>
-      (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-      constructorItems.ingredients.reduce(
-        (s: number, v: TConstructorIngredient) => s + v.price,
-        0
-      ),
-    [constructorItems]
+    if (!isAuth) {
+      navigate('/login', {
+        state: { from: location as Location },
+        replace: true
+      });
+      return;
+    }
+
+    dispatch(createOrder());
+  }, [
+    constructorItems.bun,
+    orderRequest,
+    isAuth,
+    navigate,
+    location,
+    dispatch
+  ]);
+
+  const closeOrderModal = useCallback(() => {
+    dispatch(clearOrderModal());
+  }, [dispatch]);
+
+  const handleRemove = useCallback(
+    (id: string) => {
+      dispatch(removeIngredient(id));
+    },
+    [dispatch]
   );
-
-  return null;
 
   return (
     <BurgerConstructorUI
-      price={price}
-      orderRequest={orderRequest}
       constructorItems={constructorItems}
+      orderRequest={orderRequest}
       orderModalData={orderModalData}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
+      onRemoveIngredient={handleRemove}
+      price={price}
     />
   );
 };

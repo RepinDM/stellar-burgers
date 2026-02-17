@@ -1,81 +1,82 @@
-import { FC, useState } from 'react';
 import {
-  Input,
   Button,
-  PasswordInput
+  EmailInput,
+  Input
 } from '@zlden/react-developer-burger-ui-components';
+import { FC, SyntheticEvent } from 'react';
+
 import styles from '../common.module.css';
-import { Link } from 'react-router-dom';
-import { RegisterUIProps } from './type';
+
+type RegisterUIProps = {
+  errorText?: string;
+  userName: string;
+  setUserName: (value: string) => void;
+  email: string;
+  setEmail: (value: string) => void;
+  password: string;
+  setPassword: (value: string) => void;
+  handleSubmit: (e: SyntheticEvent) => void;
+};
 
 export const RegisterUI: FC<RegisterUIProps> = ({
   errorText,
+  userName,
+  setUserName,
   email,
   setEmail,
-  handleSubmit,
   password,
   setPassword,
-  userName,
-  setUserName
+  handleSubmit
 }) => (
-  <main className={styles.container}>
-    <div className={`pt-6 ${styles.wrapCenter}`}>
-      <h3 className='pb-6 text text_type_main-medium'>Регистрация</h3>
-      <form
-        className={`pb-15 ${styles.form}`}
-        name='register'
-        onSubmit={handleSubmit}
-      >
-        <>
-          <div className='pb-6'>
-            <Input
-              type='text'
-              placeholder='Имя'
-              onChange={(e) => setUserName(e.target.value)}
-              value={userName}
-              name='name'
-              error={false}
-              errorText=''
-              size='default'
-            />
-          </div>
-          <div className='pb-6'>
-            <Input
-              type='email'
-              placeholder='E-mail'
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              name={'email'}
-              error={false}
-              errorText=''
-              size={'default'}
-            />
-          </div>
-          <div className='pb-6'>
-            <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              name='password'
-            />
-          </div>
-          <div className={`pb-6 ${styles.button}`}>
-            <Button type='primary' size='medium' htmlType='submit'>
-              Зарегистрироваться
-            </Button>
-          </div>
-          {errorText && (
-            <p className={`${styles.error} text text_type_main-default pb-6`}>
-              {errorText}
-            </p>
-          )}
-        </>
+  <div className={styles.container}>
+    <div className={styles.wrapCenter}>
+      <h2 className={`${styles.title} text text_type_main-medium mb-6`}>
+        Регистрация
+      </h2>
+
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <Input
+          type='text'
+          placeholder='Имя'
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserName(e.target.value)
+          }
+          value={userName}
+          name='name'
+          extraClass='mb-6'
+        />
+        <EmailInput
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          value={email}
+          name='email'
+          isIcon={false}
+          extraClass='mb-6'
+        />
+        <Input
+          type='password'
+          placeholder='Пароль'
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+          value={password}
+          name='password'
+          extraClass='mb-6'
+        />
+
+        {errorText ? (
+          <p className={`${styles.error} text text_type_main-default mb-4`}>
+            {errorText}
+          </p>
+        ) : null}
+
+        <div className={styles.button}>
+          <Button htmlType='submit' type='primary' size='medium'>
+            Зарегистрироваться
+          </Button>
+        </div>
       </form>
-      <div className={`${styles.question} text text_type_main-default pb-6`}>
-        Уже зарегистрированы?
-        <Link to='/login' className={`pl-2 ${styles.link}`}>
-          Войти
-        </Link>
-      </div>
     </div>
-  </main>
+  </div>
 );

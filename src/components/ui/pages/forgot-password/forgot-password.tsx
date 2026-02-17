@@ -3,6 +3,7 @@ import {
   EmailInput
 } from '@zlden/react-developer-burger-ui-components';
 import { FC, SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from '../common.module.css';
 
@@ -48,6 +49,12 @@ export const ForgotPasswordUI: FC<ForgotPasswordUIProps> = ({
           </Button>
         </div>
       </form>
+      <p className={`text text_type_main-default mt-20 ${styles.question}`}>
+        Вспомнили пароль?{' '}
+        <Link className={styles.link} to='/login'>
+          Войти
+        </Link>
+      </p>
     </div>
   </div>
 );

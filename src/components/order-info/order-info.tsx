@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { Location, useLocation, useParams } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
@@ -19,10 +19,10 @@ import {
   clearOrderDetails,
   fetchOrderByNumber
 } from '../../services/slices/order-details/order-details-slice';
-import { fetchIngredients } from '../../services/slices/ingredients/ingredients-slice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const orderNumber = Number(number);
@@ -43,12 +43,6 @@ export const OrderInfo: FC = () => {
       dispatch(clearOrderDetails());
     };
   }, [dispatch, isOrderNumberValid, orderNumber]);
-
-  useEffect(() => {
-    if (!ingredientsLoading && ingredients.length === 0) {
-      dispatch(fetchIngredients());
-    }
-  }, [dispatch, ingredientsLoading, ingredients.length]);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
@@ -100,5 +94,9 @@ export const OrderInfo: FC = () => {
 
   if (isLoading || ingredientsLoading || !orderInfo) return <Preloader />;
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  const isModal = Boolean(
+    (location.state as { background?: Location })?.background
+  );
+
+  return <OrderInfoUI orderInfo={orderInfo} isModal={isModal} />;
 };

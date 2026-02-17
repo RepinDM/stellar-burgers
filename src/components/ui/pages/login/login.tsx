@@ -4,6 +4,7 @@ import {
   Input
 } from '@zlden/react-developer-burger-ui-components';
 import { FC, SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from '../common.module.css';
 
@@ -63,6 +64,18 @@ export const LoginUI: FC<LoginUIProps> = ({
           </Button>
         </div>
       </form>
+      <p className={`text text_type_main-default mt-20 ${styles.question}`}>
+        Вы — новый пользователь?{' '}
+        <Link className={styles.link} to='/register'>
+          Зарегистрироваться
+        </Link>
+      </p>
+      <p className={`text text_type_main-default mt-4 ${styles.question}`}>
+        Забыли пароль?{' '}
+        <Link className={styles.link} to='/forgot-password'>
+          Восстановить пароль
+        </Link>
+      </p>
     </div>
   </div>
 );

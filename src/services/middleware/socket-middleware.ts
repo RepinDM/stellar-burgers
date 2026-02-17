@@ -3,6 +3,8 @@ import {
   ActionCreatorWithoutPayload,
   Middleware
 } from '@reduxjs/toolkit';
+import { refreshToken } from '@api';
+import { getCookie } from '../../utils/cookie';
 
 type WSActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -12,6 +14,54 @@ type WSActionTypes = {
   wsClose: ActionCreatorWithoutPayload;
   wsError: ActionCreatorWithPayload<string>;
   wsMessage: ActionCreatorWithPayload<unknown>;
+};
+
+const getJwtPayload = (rawToken: string): { exp?: number } | null => {
+  const token = rawToken.replace(/^Bearer\s+/i, '');
+  const payload = token.split('.')[1];
+  if (!payload) return null;
+  try {
+    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+    return JSON.parse(atob(padded));
+  } catch {
+    return null;
+  }
+};
+
+const isTokenExpired = (rawToken: string, skewMs = 10000) => {
+  const payload = getJwtPayload(rawToken);
+  if (!payload?.exp) return false;
+  return payload.exp * 1000 <= Date.now() + skewMs;
+};
+
+const getFreshSocketUrl = async (url: string) => {
+  try {
+    const parsed = new URL(url);
+    if (!parsed.searchParams.has('token')) return url;
+
+    let accessToken = getCookie('accessToken');
+    const refreshTokenValue = localStorage.getItem('refreshToken');
+    const shouldRefresh =
+      (!accessToken && refreshTokenValue) ||
+      (!!accessToken && isTokenExpired(accessToken) && refreshTokenValue);
+
+    if (shouldRefresh) {
+      try {
+        await refreshToken();
+        accessToken = getCookie('accessToken');
+      } catch {
+        return url;
+      }
+    }
+
+    if (!accessToken) return url;
+    const token = accessToken.replace(/^Bearer\s+/i, '');
+    parsed.searchParams.set('token', token);
+    return parsed.toString();
+  } catch {
+    return url;
+  }
 };
 
 export const createSocketMiddleware =
@@ -76,7 +126,12 @@ export const createSocketMiddleware =
           retryCount = 0;
           dispatch(actions.wsOpen());
         };
-        socket.onerror = () => dispatch(actions.wsError('WebSocket error'));
+        socket.onerror = () => {
+          const message = navigator.onLine
+            ? 'Ошибка WebSocket'
+            : 'Нет интернет-соединения';
+          dispatch(actions.wsError(message));
+        };
         socket.onclose = () => {
           socket = null;
           dispatch(actions.wsClose());
@@ -88,7 +143,10 @@ export const createSocketMiddleware =
             clearReconnectTimer();
             const delay = Math.min(3000 * retryCount, 30000);
             reconnectTimer = setTimeout(() => {
-              dispatch(actions.wsConnect(lastUrl as string));
+              void (async () => {
+                const nextUrl = await getFreshSocketUrl(lastUrl as string);
+                dispatch(actions.wsConnect(nextUrl));
+              })();
             }, delay);
           }
         };

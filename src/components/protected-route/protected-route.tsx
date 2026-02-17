@@ -7,10 +7,6 @@ import {
 } from '../../services/selectors/user';
 
 type ProtectedRouteProps = {
-  /**
-   * Если true — маршрут доступен ТОЛЬКО гостям (не авторизованным).
-   * Например: /login, /register и т.п.
-   */
   onlyUnAuth?: boolean;
   element: ReactElement;
 };
@@ -27,13 +23,11 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
     return null;
   }
 
-  // Гостевой маршрут: если уже авторизован — отправляем на главную.
   if (onlyUnAuth && isAuth) {
     const from = (location.state as { from?: Location })?.from;
     return <Navigate to={from?.pathname || '/'} replace />;
   }
 
-  // Защищённый маршрут: если не авторизован — отправляем на /login и запоминаем from.
   if (!onlyUnAuth && !isAuth) {
     return <Navigate to='/login' state={{ from: location }} replace />;
   }

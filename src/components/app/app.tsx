@@ -71,12 +71,10 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
 
-      {/* Основные страницы */}
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
 
-        {/* гостевые роуты */}
         <Route
           path='/login'
           element={<ProtectedRoute onlyUnAuth element={<Login />} />}
@@ -94,7 +92,6 @@ const App = () => {
           element={<ProtectedRoute onlyUnAuth element={<ResetPassword />} />}
         />
 
-        {/* защищённые роуты */}
         <Route
           path='/profile'
           element={<ProtectedRoute element={<Profile />} />}
@@ -108,14 +105,12 @@ const App = () => {
           element={<ProtectedRoute element={<OrderInfo />} />}
         />
 
-        {/* страницы деталей при прямом переходе */}
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
 
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
-      {/* Модалки (когда есть background) */}
       {backgroundLocation ? (
         <Routes>
           <Route
@@ -129,7 +124,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleCloseModal}>
+              <Modal title='' onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }
@@ -137,7 +132,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleCloseModal}>
+              <Modal title='' onClose={handleCloseModal}>
                 <OrderInfo />
               </Modal>
             }

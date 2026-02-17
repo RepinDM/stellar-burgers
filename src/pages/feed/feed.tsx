@@ -5,8 +5,7 @@ import { fetchFeed } from '../../services/slices/feed/feed-slice';
 import {
   selectFeedError,
   selectFeedLoading,
-  selectFeedOrders,
-  selectFeedStatus
+  selectFeedOrders
 } from '../../services/selectors/feed';
 import { feedWsConnect, feedWsDisconnect } from '../../services/ws/ws-actions';
 
@@ -17,26 +16,14 @@ export const Feed: FC = () => {
   const orders = useSelector(selectFeedOrders);
   const isLoading = useSelector(selectFeedLoading);
   const error = useSelector(selectFeedError);
-  const wsStatus = useSelector(selectFeedStatus);
 
   useEffect(() => {
+    dispatch(fetchFeed());
     dispatch(feedWsConnect(WS_ALL));
     return () => {
       dispatch(feedWsDisconnect());
     };
   }, [dispatch]);
 
-  const handleGetFeeds = () => {
-    dispatch(fetchFeed());
-  };
-
-  return (
-    <FeedUI
-      orders={orders}
-      handleGetFeeds={handleGetFeeds}
-      wsStatus={wsStatus}
-      isLoading={isLoading}
-      error={error}
-    />
-  );
+  return <FeedUI orders={orders} isLoading={isLoading} error={error} />;
 };

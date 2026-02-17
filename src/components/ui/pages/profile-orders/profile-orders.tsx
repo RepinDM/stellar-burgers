@@ -10,12 +10,6 @@ type ProfileOrdersUIProps = {
   error: string | null;
 };
 
-const getStatusText = (status: ProfileOrdersUIProps['wsStatus']) => {
-  if (status === 'online') return 'Онлайн';
-  if (status === 'connecting') return 'Подключение...';
-  return 'Оффлайн';
-};
-
 export const ProfileOrdersUI: FC<ProfileOrdersUIProps> = ({
   orders,
   wsStatus,
@@ -27,13 +21,6 @@ export const ProfileOrdersUI: FC<ProfileOrdersUIProps> = ({
     </aside>
 
     <section className={styles.content}>
-      <span
-        className={`${styles.status} ${
-          wsStatus === 'online' ? styles.status_online : ''
-        }`}
-      >
-        {getStatusText(wsStatus)}
-      </span>
       {error ? (
         <p className='text text_type_main-default text_color_inactive'>
           {error}
@@ -44,7 +31,9 @@ export const ProfileOrdersUI: FC<ProfileOrdersUIProps> = ({
           Заказов пока нет
         </p>
       ) : null}
-      <OrdersList orders={orders} />
+      <div className={styles.orders}>
+        <OrdersList orders={orders} />
+      </div>
     </section>
   </main>
 );

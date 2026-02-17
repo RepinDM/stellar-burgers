@@ -6,6 +6,8 @@
   grid-template-columns: 320px 1fr;
   gap: 60px;
   padding: 40px 16px;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
 }
 
 .menu {
@@ -14,15 +16,13 @@
 
 .content {
   padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 16px;
 }
 
-.status {
-  display: inline-block;
-  margin-bottom: 12px;
-  font-size: 14px;
-  color: var(--text-inactive-color);
-}
-
-.status_online {
-  color: var(--text-primary-color);
+.orders {
+  flex: 1 1 auto;
+  min-height: 0;
 }

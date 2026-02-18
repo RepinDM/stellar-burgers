@@ -1,4 +1,8 @@
-import { Button, Input } from '@zlden/react-developer-burger-ui-components';
+import {
+  Button,
+  Input,
+  PasswordInput
+} from '@zlden/react-developer-burger-ui-components';
 import { FC, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -24,12 +28,11 @@ export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
   <div className={styles.container}>
     <div className={styles.wrapCenter}>
       <h2 className={`${styles.title} text text_type_main-medium mb-6`}>
-        Сброс пароля
+        Восстановление пароля
       </h2>
 
       <form className={styles.form} onSubmit={handleSubmit}>
-        <Input
-          type='password'
+        <PasswordInput
           placeholder='Введите новый пароль'
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)

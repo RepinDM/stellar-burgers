@@ -23,5 +23,15 @@ export const Feed: FC = () => {
     };
   }, [dispatch]);
 
-  return <FeedUI orders={orders} isLoading={isLoading} />;
+  const handleGetFeeds = () => {
+    dispatch(fetchFeed());
+  };
+
+  return (
+    <FeedUI
+      orders={orders}
+      handleGetFeeds={handleGetFeeds}
+      isLoading={isLoading}
+    />
+  );
 };

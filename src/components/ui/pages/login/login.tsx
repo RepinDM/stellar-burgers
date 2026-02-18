@@ -1,7 +1,7 @@
 import {
   Button,
   EmailInput,
-  Input
+  PasswordInput
 } from '@zlden/react-developer-burger-ui-components';
 import { FC, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
@@ -41,8 +41,7 @@ export const LoginUI: FC<LoginUIProps> = ({
           isIcon={false}
           extraClass='mb-6'
         />
-        <Input
-          type='password'
+        <PasswordInput
           placeholder='Пароль'
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)

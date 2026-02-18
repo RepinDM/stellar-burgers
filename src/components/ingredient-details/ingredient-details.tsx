@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useParams } from 'react-router-dom';
+import { Location, useLocation, useParams } from 'react-router-dom';
 
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
@@ -9,6 +9,7 @@ import { selectIngredientById } from '../../services/selectors/ingredients';
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
 
   const ingredientData = useSelector(selectIngredientById(id));
 
@@ -16,5 +17,11 @@ export const IngredientDetails: FC = () => {
     return <Preloader />;
   }
 
-  return <IngredientDetailsUI ingredientData={ingredientData} />;
+  const isModal = Boolean(
+    (location.state as { background?: Location })?.background
+  );
+
+  return (
+    <IngredientDetailsUI ingredientData={ingredientData} isModal={isModal} />
+  );
 };

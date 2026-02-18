@@ -21,6 +21,38 @@
   padding-top: 60px;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+}
+
+.refreshAction {
+  margin-left: auto;
+}
+
+.refreshButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.refreshIcon {
+  width: 24px;
+  height: 24px;
+  transform: scaleX(-1);
+}
+
+.refreshAction :global(button):hover .refreshButton,
+.refreshAction :global(button):active .refreshButton {
+  color: #00cccc;
+}
+
 .orders {
   flex: 1 1 auto;
   min-height: 0;

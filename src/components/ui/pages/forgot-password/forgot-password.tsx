@@ -32,6 +32,7 @@ export const ForgotPasswordUI: FC<ForgotPasswordUIProps> = ({
             setEmail(e.target.value)
           }
           value={email}
+          placeholder='Укажите e-mail'
           name='email'
           isIcon={false}
           extraClass='mb-6'

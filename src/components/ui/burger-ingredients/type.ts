@@ -13,4 +13,6 @@ export type BurgerIngredientsUIProps = {
   mainsRef: (node?: Element | null | undefined) => void;
   saucesRef: (node?: Element | null | undefined) => void;
   onTabClick: (val: string) => void;
+  counts: Record<string, number>;
+  handleAdd: (ingredient: TIngredient) => void;
 };

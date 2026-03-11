@@ -2,16 +2,21 @@
   margin: 0 auto;
   width: 640px;
 }
+
 .number {
   text-align: center;
 }
 
-.status {
-  color: #00cccc;
+.numberModal {
+  margin-top: 16px;
+}
+
+.numberPage {
+  margin-top: 40px;
 }
 
 .header {
-  margin: 0;
+  margin: 0 0 4px;
 }
 
 .img_wrap {

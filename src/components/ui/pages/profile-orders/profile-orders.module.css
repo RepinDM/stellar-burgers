@@ -1,15 +1,28 @@
-.menu {
-  width: 320px;
+.main {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  padding: 40px 16px;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
 }
 
-.main {
+.menu {
+  padding-top: 80px;
+}
+
+.content {
+  padding-top: 40px;
   display: flex;
-  height: 100%;
-  width: 1240px;
-  overflow: hidden;
-  margin: 0 auto;
+  flex-direction: column;
+  min-height: 0;
+  gap: 16px;
 }
 
 .orders {
-  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
 }

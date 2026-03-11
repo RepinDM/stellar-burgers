@@ -1,91 +1,81 @@
-import { FC } from 'react';
+import {
+  Button,
+  EmailInput,
+  Input
+} from '@zlden/react-developer-burger-ui-components';
+import { FC, FormEvent } from 'react';
 
-import { Button, Input } from '@zlden/react-developer-burger-ui-components';
 import styles from './profile.module.css';
-import commonStyles from '../common.module.css';
-
-import { ProfileUIProps } from './type';
 import { ProfileMenu } from '@components';
+
+type ProfileUIProps = {
+  formValue: {
+    name: string;
+    email: string;
+    password: string;
+  };
+  isFormChanged: boolean;
+  handleCancel: (e: FormEvent) => void;
+  handleSubmit: (e: FormEvent) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 export const ProfileUI: FC<ProfileUIProps> = ({
   formValue,
   isFormChanged,
-  updateUserError,
-  handleSubmit,
   handleCancel,
+  handleSubmit,
   handleInputChange
 }) => (
-  <main className={`${commonStyles.container}`}>
-    <div className={`mt-30 mr-15 ${styles.menu}`}>
+  <main className={styles.main}>
+    <aside className={styles.menu}>
       <ProfileMenu />
-    </div>
-    <form
-      className={`mt-30 ${styles.form} ${commonStyles.form}`}
-      onSubmit={handleSubmit}
-    >
-      <>
-        <div className='pb-6'>
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={handleInputChange}
-            value={formValue.name}
-            name={'name'}
-            error={false}
-            errorText={''}
-            size={'default'}
-            icon={'EditIcon'}
-          />
-        </div>
-        <div className='pb-6'>
-          <Input
-            type={'email'}
-            placeholder={'E-mail'}
-            onChange={handleInputChange}
-            value={formValue.email}
-            name={'email'}
-            error={false}
-            errorText={''}
-            size={'default'}
-            icon={'EditIcon'}
-          />
-        </div>
-        <div className='pb-6'>
-          <Input
-            type={'password'}
-            placeholder={'Пароль'}
-            onChange={handleInputChange}
-            value={formValue.password}
-            name={'password'}
-            error={false}
-            errorText={''}
-            size={'default'}
-            icon={'EditIcon'}
-          />
-        </div>
-        {isFormChanged && (
-          <div className={styles.button}>
+    </aside>
+
+    <section className={styles.content}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <Input
+          type='text'
+          placeholder='Имя'
+          onChange={handleInputChange}
+          value={formValue.name}
+          name='name'
+          icon='EditIcon'
+          extraClass='mb-6'
+        />
+        <EmailInput
+          onChange={handleInputChange}
+          value={formValue.email}
+          name='email'
+          isIcon
+          extraClass='mb-6'
+        />
+        <Input
+          type='password'
+          placeholder='Пароль'
+          onChange={handleInputChange}
+          value={formValue.password}
+          name='password'
+          icon='EditIcon'
+          extraClass='mb-6'
+        />
+
+        {isFormChanged ? (
+          <div className={styles.actions}>
             <Button
-              type='secondary'
               htmlType='button'
+              type='secondary'
               size='medium'
               onClick={handleCancel}
             >
-              Отменить
+              Отмена
             </Button>
-            <Button type='primary' size='medium' htmlType='submit'>
+            <Button htmlType='submit' type='primary' size='medium'>
               Сохранить
             </Button>
           </div>
-        )}
-        {updateUserError && (
-          <p
-            className={`${commonStyles.error} pt-5 text text_type_main-default`}
-          >
-            {updateUserError}
-          </p>
-        )}
-      </>
-    </form>
+        ) : null}
+      </form>
+    </section>
   </main>
 );

@@ -2,5 +2,6 @@ import { TIngredient } from '@utils-types';
 
 export type TBurgerIngredientProps = {
   ingredient: TIngredient;
-  count: number;
+  count?: number;
+  handleAdd?: (ingredient: TIngredient) => void;
 };

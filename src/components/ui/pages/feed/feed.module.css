@@ -1,34 +1,59 @@
-.containerMain {
+.main {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 40px 16px;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
+}
+
+.sectionLeft {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 16px;
+  min-height: 0;
 }
 
-.titleBox {
-  width: 100%;
-  max-width: 1240px;
+.sectionRight {
+  padding-top: 60px;
+}
+
+.header {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  gap: 16px;
 }
 
-.main {
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 1240px;
-  overflow: hidden;
+.title {
+  margin: 0;
 }
 
-.columnOrders {
-  width: 608px;
+.refreshAction {
+  margin-left: auto;
 }
 
-.columnInfo {
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 580px;
+.refreshButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.refreshIcon {
+  width: 24px;
+  height: 24px;
+  transform: scaleX(-1);
+}
+
+.refreshAction :global(button):hover .refreshButton,
+.refreshAction :global(button):active .refreshButton {
+  color: #00cccc;
+}
+
+.orders {
+  flex: 1 1 auto;
+  min-height: 0;
 }

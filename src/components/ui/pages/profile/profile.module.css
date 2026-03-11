@@ -1,7 +1,27 @@
+.main {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  padding: 40px 16px;
+}
+
 .menu {
-  width: 320px;
+  padding-top: 80px;
+}
+
+.content {
+  padding-top: 80px;
 }
 
 .form {
   max-width: 480px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
 }

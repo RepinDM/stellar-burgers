@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "name": "Краторный бургер",
+  "order": {
+    "_id": "order-1",
+    "status": "done",
+    "name": "Краторный бургер",
+    "createdAt": "2026-03-14T10:00:00.000Z",
+    "updatedAt": "2026-03-14T10:00:00.000Z",
+    "number": 12345,
+    "ingredients": ["bun-1", "main-1", "sauce-1", "bun-1"]
+  }
+}

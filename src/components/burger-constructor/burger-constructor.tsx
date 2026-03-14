@@ -17,7 +17,10 @@ import {
   createOrder,
   clearOrderModal
 } from '../../services/slices/order/order-slice';
-import { removeIngredient } from '../../services/slices/constructor/constructor-slice';
+import {
+  moveIngredient,
+  removeIngredient
+} from '../../services/slices/constructor/constructor-slice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -64,6 +67,13 @@ export const BurgerConstructor: FC = () => {
     [dispatch]
   );
 
+  const handleMove = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      dispatch(moveIngredient({ fromIndex, toIndex }));
+    },
+    [dispatch]
+  );
+
   return (
     <BurgerConstructorUI
       constructorItems={constructorItems}
@@ -71,6 +81,7 @@ export const BurgerConstructor: FC = () => {
       orderModalData={orderModalData}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
+      onMoveIngredient={handleMove}
       onRemoveIngredient={handleRemove}
       price={price}
     />

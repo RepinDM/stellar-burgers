@@ -1,261 +1,248 @@
 # Stellar Burgers
 
-Веб-приложение космической бургерной, созданное в рамках проектных работ 11 и 12 спринтов Яндекс Практикума.
+Stellar Burgers is a React application for building and ordering custom burgers.
 
-Пользователь может собрать бургер из ингредиентов, оформить заказ, зарегистрироваться и авторизоваться, просматривать ленту заказов и историю своих заказов, а также редактировать данные профиля. Дополнительно проект покрыт юнит- и интеграционными тестами.
+The application includes authentication, protected routes, global state management, REST API integration, real-time order feeds via WebSocket, profile management, order history, and automated testing.
 
-## Макет и задание
+## Project Context
 
-- [Макет в Figma](https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design)
-- Проектная работа 11: Redux-хранилище, роутинг, авторизация
-- Проектная работа 12: Jest и Cypress тестирование
+Educational project completed as part of the Yandex Practicum Frontend Developer program.
 
-## Что реализовано
+The main goal of the project was to build a production-like React application with routing, authentication, global state management, API integration, real-time data, and automated tests.
 
-### Проектная работа 11
+## Features
 
-- Настроен роутинг приложения на `react-router-dom`
-- Реализованы публичные и защищённые маршруты
-- Добавлены модальные окна на основе роутинга
-- Подключено глобальное состояние через `Redux Toolkit`
-- Реализованы слайсы для:
-  - ингредиентов
-  - конструктора бургера
-  - создания заказа
-  - ленты заказов
-  - истории заказов пользователя
-  - профиля пользователя
-  - детальной информации о заказе
-- Подключены асинхронные запросы к API через `createAsyncThunk`
-- Реализована авторизация и регистрация пользователя
-- Добавлена механика обновления токена через `fetchWithRefresh`
-- Реализован личный кабинет с редактированием профиля
-- Реализована история заказов пользователя
-- Реализована лента заказов с обновлением в реальном времени
-- Реализован переход на страницу ингредиента и заказа как через модалку, так и прямым роутом
-- Реализовано оформление заказа с очисткой конструктора после успешного ответа
+- Build a custom burger from buns, sauces, and fillings
+- Calculate the total order price in real time
+- View ingredient details in modal windows
+- Register, sign in, and sign out
+- Access protected profile routes
+- Edit profile information
+- Create authenticated orders
+- View a public order feed
+- View personal order history
+- Open order details through dynamic routes
+- Receive real-time order updates through WebSocket
+- Automatically refresh expired access tokens
+- Clear the burger constructor after a successful order
 
-### Проектная работа 12
+## Tech Stack
 
-- Настроен `Jest` для юнит-тестов
-- Настроен `Cypress` для интеграционных тестов
-- Добавлены mock fixtures для тестов
-- Написаны тесты для `rootReducer`
-- Написаны тесты для `burgerConstructor`:
-  - добавление ингредиента
-  - удаление ингредиента
-  - изменение порядка ингредиентов
-- Написаны тесты для `ingredients` slice:
-  - `pending`
-  - `fulfilled`
-  - `rejected`
-- Написаны Cypress тесты для страницы конструктора:
-  - добавление булки и начинок в конструктор
-  - открытие модального окна ингредиента
-  - закрытие модального окна по крестику
-  - закрытие модального окна по оверлею
-  - создание заказа
-  - проверка номера заказа
-  - очистка конструктора после заказа
-- Настроен отчёт покрытия тестами через `Jest coverage`
-
-## Основная функциональность
-
-- Сборка бургера из булок, соусов и начинок
-- Подсчёт стоимости заказа в реальном времени
-- Модальные окна ингредиентов и заказов
-- Регистрация, вход и выход пользователя
-- Защищённые маршруты `/profile` и вложенные роуты
-- Редактирование имени и e-mail в профиле
-- Получение и отображение списка ингредиентов с сервера
-- Оформление заказа только авторизованным пользователем
-- Лента заказов `/feed`
-- История заказов пользователя `/profile/orders`
-- Просмотр деталей заказа по динамическим маршрутам
-- Работа с WebSocket для обновления заказов в реальном времени
-
-## Используемые технологии
+### Frontend
 
 - React 18
 - TypeScript
 - Redux Toolkit
 - React Redux
 - React Router DOM
-- Webpack 5
 - CSS Modules
 - clsx
+
+### Data & Networking
+
+- REST API
+- WebSocket
+- `createAsyncThunk`
+- token-based authentication
+- access token refresh logic
+
+### Testing
+
 - Jest
 - Cypress
+- test fixtures
+- code coverage
+
+### Tooling
+
+- Webpack 5
 - ESLint
 - Prettier
 - Storybook
+- npm
 
-## Структура проекта
+## State Management
 
-```text
-src/
-  components/         React-компоненты и UI-обёртки
-  pages/              Страницы приложения
-  services/           Redux store, slices, selectors, middleware, ws-actions
-  utils/              Работа с API, cookies и общие типы
-  test/               Вспомогательные моки для Jest
+Global application state is managed with Redux Toolkit.
 
-cypress/
-  e2e/                Интеграционные тесты
-  fixtures/           Mock-данные для Cypress
-  support/            Общая настройка Cypress
-```
+The store is split into separate slices responsible for:
 
-## Переменные окружения
+- ingredients
+- burger constructor
+- order creation
+- public order feed
+- user order history
+- user profile
+- order details
 
-Для корректной работы запросов к API нужен файл `.env`.
+Asynchronous API requests are implemented with `createAsyncThunk`.
 
-Пример содержимого:
+This separation keeps application state predictable and makes individual parts of the store easier to test and maintain.
 
-```env
-BURGER_API_URL=https://norma.education-services.ru/api
-```
+## Authentication and Protected Routes
 
-Можно создать `.env` вручную или скопировать значение из `.env.example`.
+The application supports:
 
-## Установка и запуск проекта
+- user registration
+- user login
+- user logout
+- access token refresh
+- protected routes
+- profile editing
 
-### 1. Клонировать репозиторий
+A custom token refresh mechanism is implemented through `fetchWithRefresh`.
 
-```bash
-git clone <repo_url>
-cd stellar-burgers
-```
+Protected routes prevent unauthenticated users from opening private profile pages.
 
-### 2. Установить зависимости
+## Real-Time Updates
 
-```bash
-npm install
-```
+The application uses WebSocket connections to display real-time order data.
 
-### 3. Создать файл окружения
+WebSocket functionality is used for:
 
-```bash
-cp .env.example .env
-```
+- the public order feed
+- personal order history
+- live order updates
 
-Если команда `cp` не подходит, создайте файл `.env` вручную и добавьте:
+This allows order information to update without manual page refreshes.
 
-```env
-BURGER_API_URL=https://norma.education-services.ru/api
-```
+## Routing
 
-### 4. Запустить локальный сервер разработки
+Routing is implemented with `react-router-dom`.
 
-```bash
-npm start
-```
+The application includes:
 
-По умолчанию приложение поднимается на:
+- public routes
+- protected routes
+- nested profile routes
+- dynamic ingredient routes
+- dynamic order routes
 
-```text
-http://localhost:4000
-```
+Ingredient and order details can be opened either:
 
-## Доступные команды
+- inside a modal window
+- as a standalone page through direct navigation
 
-### Разработка
+## Testing
 
-```bash
-npm start
-```
-
-Запуск локального dev-сервера.
-
-### Production build
-
-```bash
-npm run build
-```
-
-Сборка production-версии проекта в папку `dist`.
-
-### Линтер
-
-```bash
-npm run lint
-```
-
-Проверка кода ESLint.
-
-### Автоисправление линтера
-
-```bash
-npm run lint:fix
-```
-
-### Форматирование
-
-```bash
-npm run format
-```
-
-### Jest тесты
-
-```bash
-npm test
-```
-
-### Jest coverage
-
-```bash
-npm run test:coverage
-```
-
-### Cypress UI
-
-```bash
-npm run cypress:open
-```
-
-### Cypress headless
-
-```bash
-npm run cypress:run
-```
-
-## Тестирование
-
-В проекте используются два уровня тестирования:
+The project uses both unit and end-to-end testing.
 
 ### Jest
 
-Покрывает бизнес-логику и Redux-слой:
+Jest is used to test Redux logic and reducers.
+
+Covered scenarios include:
 
 - `rootReducer`
-- `constructor-slice`
-- `ingredients-slice`
+- burger constructor slice
+- ingredient slice states
+
+Burger constructor tests include:
+
+- adding ingredients
+- removing ingredients
+- changing ingredient order
+
+Ingredient slice tests include:
+
+- `pending`
+- `fulfilled`
+- `rejected`
 
 ### Cypress
 
-Покрывает пользовательские сценарии:
+Cypress is used for end-to-end user scenarios.
 
-- добавление ингредиентов в конструктор
-- работа модальных окон
-- оформление заказа
+Covered flows include:
 
-## Что проверялось перед сдачей
+- adding a bun and ingredients to the constructor
+- opening ingredient details
+- closing modals
+- closing modals by overlay click
+- creating an order
+- verifying the returned order number
+- clearing the constructor after order creation
 
-Перед сдачей проект был проверен командами:
+## Project Structure
 
-```bash
+```text
+src/
+├── components/        React components and UI wrappers
+├── pages/             Application pages
+├── services/          Redux store, slices, selectors, middleware, ws actions
+├── utils/             API helpers, cookies, shared types
+└── test/              Jest mocks and test utilities
+
+cypress/
+├── e2e/               End-to-end tests
+├── fixtures/          Mock data
+└── support/           Cypress configuration and helpers
+Environment Variables
+The application requires an API URL.
+Create a .env file in the project root:
+BURGER_API_URL=https://norma.education-services.ru/api
+You can also copy the provided example file:
+cp .env.example .env
+Installation
+Clone the repository:
+git clone https://github.com/RepinDM/stellar-burgers.git
+cd stellar-burgers
+Install dependencies:
+npm install
+Create the environment file:
+cp .env.example .env
+Start the development server:
+npm start
+The application runs locally at:
+http://localhost:4000
+Available Scripts
+Development
+npm start
+Starts the local development server.
+Production Build
+npm run build
+Creates a production build in the dist directory.
+Lint
+npm run lint
+Runs ESLint.
+Lint Fix
+npm run lint:fix
+Automatically fixes supported linting issues.
+Formatting
+npm run format
+Formats the project with Prettier.
+Jest
+npm test
+Runs Jest tests.
+Test Coverage
+npm run test:coverage
+Generates the Jest coverage report.
+Cypress UI
+npm run cypress:open
+Opens the Cypress test runner.
+Cypress Headless
+npm run cypress:run
+Runs Cypress tests in headless mode.
+Quality Checks
+The project can be validated with:
 npm run lint
 npm run build
 npm test -- --runInBand
 npm run test:coverage -- --runInBand
 npm run cypress:run
-```
-
-Все проверки проходят успешно.
-
-## Возможности для дальнейшего развития
-
-- расширить покрытие тестами для остальных Redux-слайсов
-- добавить CI-проверки для линтера, Jest и Cypress
-- вынести общие mock-данные для тестов в отдельные утилиты
-- добавить более детализированное описание архитектуры проекта
+These checks cover:
+- code quality
+- production build
+- Redux unit tests
+- coverage reporting
+- end-to-end scenarios
+Design
+The interface was implemented based on a Figma design provided as part of the Yandex Practicum project.
+Figma Design
+Future Improvements
+- Increase unit test coverage for the remaining Redux slices
+- Add CI checks for linting, Jest, and Cypress
+- Add deployment configuration for a public live demo
+- Add accessibility checks
+- Improve architecture documentation
+- Add performance monitoring

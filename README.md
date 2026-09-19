@@ -343,15 +343,11 @@ These checks cover:
 
 ## Design
 
-The interface was implemented based on a **Figma design** provided as part of the Yandex Practicum project.
+The interface was implemented based on a Figma design provided as part of the Yandex Practicum project.
 
 ### Figma Design
 
-Add the Figma project link here:
-
-```text
-Figma: <your-figma-link>
-```
+[Open the design in Figma](https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-\(3-месяца\)_external_link?type=design&node-id=0-1&mode=design)
 
 ## Future Improvements
 
@@ -366,14 +362,6 @@ Possible improvements for the project:
 - Improve error handling and API error states
 - Add loading and skeleton states where appropriate
 - Add more component-level tests
-
-## Repository
-
-GitHub:
-
-```text
-https://github.com/RepinDM/stellar-burgers
-```
 
 ## Author
 

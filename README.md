@@ -197,6 +197,20 @@ Covered flows include:
 - verifying the returned order number
 - clearing the constructor after successful order creation
 
+## Screenshots
+
+### Burger Constructor
+
+![Stellar Burgers burger constructor](docs/screenshots/burger-constructor.png)
+
+### Order Feed
+
+![Stellar Burgers order feed](docs/screenshots/order-feed.png)
+
+### Profile Order History
+
+![Stellar Burgers profile order history](docs/screenshots/profile-or-order.png)
+
 ## Project Structure
 
 ```text

@@ -1,21 +1,32 @@
 # Stellar Burgers
 
-Stellar Burgers is a React application for building and ordering custom burgers.
+**Stellar Burgers** is a React application for building and ordering custom burgers.
 
 The application includes authentication, protected routes, global state management, REST API integration, real-time order feeds via WebSocket, profile management, order history, and automated testing.
 
 ## Project Context
 
-Educational project completed as part of the Yandex Practicum Frontend Developer program.
+Educational project completed as part of the **Yandex Practicum Frontend Developer** program.
 
-The main goal of the project was to build a production-like React application with routing, authentication, global state management, API integration, real-time data, and automated tests.
+The main goal of the project was to build a production-like React application and practice working with:
+
+- React application architecture;
+- routing;
+- authentication and authorization;
+- global state management;
+- REST API integration;
+- WebSocket connections;
+- asynchronous operations;
+- protected routes;
+- automated testing.
 
 ## Features
 
 - Build a custom burger from buns, sauces, and fillings
 - Calculate the total order price in real time
 - View ingredient details in modal windows
-- Register, sign in, and sign out
+- Register a new user
+- Sign in and sign out
 - Access protected profile routes
 - Edit profile information
 - Create authenticated orders
@@ -43,15 +54,15 @@ The main goal of the project was to build a production-like React application wi
 - REST API
 - WebSocket
 - `createAsyncThunk`
-- token-based authentication
-- access token refresh logic
+- Token-based authentication
+- Access token refresh logic
 
 ### Testing
 
 - Jest
 - Cypress
-- test fixtures
-- code coverage
+- Test fixtures
+- Code coverage
 
 ### Tooling
 
@@ -63,9 +74,9 @@ The main goal of the project was to build a production-like React application wi
 
 ## State Management
 
-Global application state is managed with Redux Toolkit.
+Global application state is managed with **Redux Toolkit**.
 
-The store is split into separate slices responsible for:
+The Redux store is split into separate slices responsible for different parts of the application:
 
 - ingredients
 - burger constructor
@@ -75,9 +86,9 @@ The store is split into separate slices responsible for:
 - user profile
 - order details
 
-Asynchronous API requests are implemented with `createAsyncThunk`.
+Asynchronous API requests are implemented using `createAsyncThunk`.
 
-This separation keeps application state predictable and makes individual parts of the store easier to test and maintain.
+This separation keeps the application state predictable and makes individual parts of the store easier to maintain and test.
 
 ## Authentication and Protected Routes
 
@@ -92,11 +103,11 @@ The application supports:
 
 A custom token refresh mechanism is implemented through `fetchWithRefresh`.
 
-Protected routes prevent unauthenticated users from opening private profile pages.
+Protected routes prevent unauthenticated users from accessing private profile pages.
 
 ## Real-Time Updates
 
-The application uses WebSocket connections to display real-time order data.
+The application uses **WebSocket** connections to display order data in real time.
 
 WebSocket functionality is used for:
 
@@ -104,7 +115,7 @@ WebSocket functionality is used for:
 - personal order history
 - live order updates
 
-This allows order information to update without manual page refreshes.
+This allows order information to update without manually refreshing the page.
 
 ## Routing
 
@@ -120,30 +131,32 @@ The application includes:
 
 Ingredient and order details can be opened either:
 
-- inside a modal window
-- as a standalone page through direct navigation
+- inside a modal window;
+- as a standalone page through direct navigation.
+
+This approach allows the same content to work both as an overlay during normal navigation and as a separate page when opening a direct URL.
 
 ## Testing
 
-The project uses both unit and end-to-end testing.
+The project uses both **unit testing** and **end-to-end testing**.
 
 ### Jest
 
-Jest is used to test Redux logic and reducers.
+Jest is used to test Redux reducers and application state logic.
 
 Covered scenarios include:
 
 - `rootReducer`
 - burger constructor slice
-- ingredient slice states
+- ingredients slice states
 
-Burger constructor tests include:
+Burger constructor tests cover:
 
 - adding ingredients
 - removing ingredients
 - changing ingredient order
 
-Ingredient slice tests include:
+Ingredient slice tests cover asynchronous states:
 
 - `pending`
 - `fulfilled`
@@ -155,13 +168,14 @@ Cypress is used for end-to-end user scenarios.
 
 Covered flows include:
 
-- adding a bun and ingredients to the constructor
+- adding a bun to the burger constructor
+- adding ingredients to the constructor
 - opening ingredient details
-- closing modals
-- closing modals by overlay click
+- closing modal windows
+- closing modal windows by clicking on the overlay
 - creating an order
 - verifying the returned order number
-- clearing the constructor after order creation
+- clearing the constructor after successful order creation
 
 ## Project Structure
 
@@ -169,80 +183,200 @@ Covered flows include:
 src/
 ├── components/        React components and UI wrappers
 ├── pages/             Application pages
-├── services/          Redux store, slices, selectors, middleware, ws actions
-├── utils/             API helpers, cookies, shared types
+├── services/          Redux store, slices, selectors, middleware and WS actions
+├── utils/             API helpers, cookies and shared types
 └── test/              Jest mocks and test utilities
 
 cypress/
 ├── e2e/               End-to-end tests
 ├── fixtures/          Mock data
 └── support/           Cypress configuration and helpers
-Environment Variables
+```
+
+## Environment Variables
+
 The application requires an API URL.
-Create a .env file in the project root:
+
+Create a `.env` file in the project root:
+
+```env
 BURGER_API_URL=https://norma.education-services.ru/api
+```
+
 You can also copy the provided example file:
+
+```bash
 cp .env.example .env
-Installation
+```
+
+## Installation
+
 Clone the repository:
+
+```bash
 git clone https://github.com/RepinDM/stellar-burgers.git
+```
+
+Navigate to the project directory:
+
+```bash
 cd stellar-burgers
+```
+
 Install dependencies:
+
+```bash
 npm install
+```
+
 Create the environment file:
+
+```bash
 cp .env.example .env
+```
+
 Start the development server:
+
+```bash
 npm start
+```
+
 The application runs locally at:
+
+```text
 http://localhost:4000
-Available Scripts
-Development
+```
+
+## Available Scripts
+
+### Development
+
+```bash
 npm start
+```
+
 Starts the local development server.
-Production Build
+
+### Production Build
+
+```bash
 npm run build
-Creates a production build in the dist directory.
-Lint
+```
+
+Creates a production build in the `dist` directory.
+
+### Lint
+
+```bash
 npm run lint
+```
+
 Runs ESLint.
-Lint Fix
+
+### Lint Fix
+
+```bash
 npm run lint:fix
+```
+
 Automatically fixes supported linting issues.
-Formatting
+
+### Formatting
+
+```bash
 npm run format
-Formats the project with Prettier.
-Jest
+```
+
+Formats the project using Prettier.
+
+### Jest
+
+```bash
 npm test
+```
+
 Runs Jest tests.
-Test Coverage
+
+### Test Coverage
+
+```bash
 npm run test:coverage
+```
+
 Generates the Jest coverage report.
-Cypress UI
+
+### Cypress UI
+
+```bash
 npm run cypress:open
-Opens the Cypress test runner.
-Cypress Headless
+```
+
+Opens the Cypress Test Runner.
+
+### Cypress Headless
+
+```bash
 npm run cypress:run
+```
+
 Runs Cypress tests in headless mode.
-Quality Checks
-The project can be validated with:
+
+## Quality Checks
+
+The project can be validated using the following commands:
+
+```bash
 npm run lint
 npm run build
 npm test -- --runInBand
 npm run test:coverage -- --runInBand
 npm run cypress:run
+```
+
 These checks cover:
+
 - code quality
 - production build
 - Redux unit tests
-- coverage reporting
+- test coverage
 - end-to-end scenarios
-Design
-The interface was implemented based on a Figma design provided as part of the Yandex Practicum project.
-Figma Design
-Future Improvements
+
+## Design
+
+The interface was implemented based on a **Figma design** provided as part of the Yandex Practicum project.
+
+### Figma Design
+
+Add the Figma project link here:
+
+```text
+Figma: <your-figma-link>
+```
+
+## Future Improvements
+
+Possible improvements for the project:
+
 - Increase unit test coverage for the remaining Redux slices
-- Add CI checks for linting, Jest, and Cypress
+- Add CI checks for ESLint, Jest, Cypress, and production builds
 - Add deployment configuration for a public live demo
 - Add accessibility checks
 - Improve architecture documentation
 - Add performance monitoring
+- Improve error handling and API error states
+- Add loading and skeleton states where appropriate
+- Add more component-level tests
+
+## Repository
+
+GitHub:
+
+```text
+https://github.com/RepinDM/stellar-burgers
+```
+
+## Author
+
+**Dmitry Repin**
+
+Frontend Developer

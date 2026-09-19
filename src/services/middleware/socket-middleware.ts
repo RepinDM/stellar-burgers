@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { refreshToken } from '@api';
 import { getCookie } from '../../utils/cookie';
+import { getDemoFeeds, shouldUseDemoMode } from '../../utils/demo-api';
 
 type WSActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -73,7 +74,7 @@ export const createSocketMiddleware =
     let lastUrl: string | null = null;
     let isManuallyClosed = false;
     let retryCount = 0;
-    const MAX_RETRIES = 5;
+    const MAX_RETRIES = 0;
 
     const clearReconnectTimer = () => {
       if (reconnectTimer) {
@@ -87,6 +88,15 @@ export const createSocketMiddleware =
 
       if (actions.wsConnect.match(action)) {
         const url = action.payload;
+        if (shouldUseDemoMode()) {
+          dispatch(actions.wsConnecting());
+          void getDemoFeeds().then((data) => {
+            dispatch(actions.wsMessage(data));
+            dispatch(actions.wsClose());
+          });
+          return next(action);
+        }
+
         if (
           socket &&
           lastUrl === url &&
@@ -137,6 +147,9 @@ export const createSocketMiddleware =
           dispatch(actions.wsClose());
           if (!isManuallyClosed && lastUrl) {
             if (retryCount >= MAX_RETRIES) {
+              void getDemoFeeds().then((data) => {
+                dispatch(actions.wsMessage(data));
+              });
               return;
             }
             retryCount += 1;

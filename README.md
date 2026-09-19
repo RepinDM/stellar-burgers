@@ -2,6 +2,8 @@
 
 **Stellar Burgers** is a React application for building and ordering custom burgers.
 
+**Live Demo:** https://stellar-burgers-beta.vercel.app/
+
 The application includes authentication, protected routes, global state management, REST API integration, real-time order feeds via WebSocket, profile management, order history, and automated testing.
 
 ## Project Context
@@ -36,6 +38,24 @@ The main goal of the project was to build a production-like React application an
 - Receive real-time order updates through WebSocket
 - Automatically refresh expired access tokens
 - Clear the burger constructor after a successful order
+- Use a standalone portfolio demo fallback when the external backend is unavailable
+
+## Portfolio Demo Mode
+
+The original project depends on external Yandex Practicum REST API and WebSocket services.
+
+Because those services may be unavailable or unstable, this portfolio version includes a standalone demo fallback.
+
+If the external backend cannot be reached:
+
+- ingredients are loaded from local demo data;
+- the public order feed uses local demo orders;
+- authentication falls back to a local demo session;
+- orders can be created locally;
+- demo orders are stored in `localStorage`;
+- WebSocket reconnect attempts are limited to avoid endless error loops.
+
+The application keeps the original React, Redux Toolkit, routing, testing, and API architecture while remaining usable for portfolio review without the external backend.
 
 ## Tech Stack
 
@@ -353,15 +373,11 @@ The interface was implemented based on a Figma design provided as part of the Ya
 
 Possible improvements for the project:
 
-- Increase unit test coverage for the remaining Redux slices
+- Restore full integration with a stable production backend
+- Replace demo authentication with a production authentication service
 - Add CI checks for ESLint, Jest, Cypress, and production builds
-- Add deployment configuration for a public live demo
-- Add accessibility checks
-- Improve architecture documentation
-- Add performance monitoring
-- Improve error handling and API error states
-- Add loading and skeleton states where appropriate
-- Add more component-level tests
+- Expand unit and end-to-end test coverage
+- Add accessibility and performance checks
 
 ## Author
 

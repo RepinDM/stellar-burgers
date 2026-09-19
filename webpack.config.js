@@ -1,7 +1,20 @@
 const path = require('path');
+const fs = require('fs');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+
+class CopyPublicDataPlugin {
+  apply(compiler) {
+    compiler.hooks.afterEmit.tap('CopyPublicDataPlugin', () => {
+      const from = path.resolve(__dirname, './public/data');
+      const to = path.resolve(__dirname, './dist/data');
+      if (fs.existsSync(from)) {
+        fs.cpSync(from, to, { recursive: true });
+      }
+    });
+  }
+}
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.tsx'),
@@ -54,9 +67,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
+    new CopyPublicDataPlugin(),
     new Dotenv({
-  systemvars: true
-})
+      systemvars: true
+    })
   ],
   resolve: {
     extensions: [

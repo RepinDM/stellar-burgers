@@ -92,6 +92,7 @@ const feedSlice = createSlice({
         state.orders = payload.orders;
         state.total = payload.total ?? 0;
         state.totalToday = payload.totalToday ?? 0;
+        state.error = null;
       });
   }
 });

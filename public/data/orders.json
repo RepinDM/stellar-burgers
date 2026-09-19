@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "orders": [
+    {
+      "_id": "demo-order-1",
+      "status": "done",
+      "name": "Краторный space бургер",
+      "createdAt": "2026-09-19T09:10:00.000Z",
+      "updatedAt": "2026-09-19T09:10:00.000Z",
+      "number": 90001,
+      "ingredients": [
+        "643d69a5c3f7b9001cfa093c",
+        "643d69a5c3f7b9001cfa0941",
+        "643d69a5c3f7b9001cfa0942",
+        "643d69a5c3f7b9001cfa093c"
+      ]
+    },
+    {
+      "_id": "demo-order-2",
+      "status": "pending",
+      "name": "Флюоресцентный бургер",
+      "createdAt": "2026-09-19T09:18:00.000Z",
+      "updatedAt": "2026-09-19T09:18:00.000Z",
+      "number": 90002,
+      "ingredients": [
+        "643d69a5c3f7b9001cfa093d",
+        "643d69a5c3f7b9001cfa093e",
+        "643d69a5c3f7b9001cfa0943",
+        "643d69a5c3f7b9001cfa093d"
+      ]
+    },
+    {
+      "_id": "demo-order-3",
+      "status": "done",
+      "name": "Биомарсианский бургер",
+      "createdAt": "2026-09-19T09:25:00.000Z",
+      "updatedAt": "2026-09-19T09:25:00.000Z",
+      "number": 90003,
+      "ingredients": [
+        "643d69a5c3f7b9001cfa093c",
+        "643d69a5c3f7b9001cfa0941",
+        "643d69a5c3f7b9001cfa093e",
+        "643d69a5c3f7b9001cfa0942",
+        "643d69a5c3f7b9001cfa093c"
+      ]
+    }
+  ],
+  "total": 90003,
+  "totalToday": 3
+}

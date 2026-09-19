@@ -72,6 +72,7 @@ const ordersSlice = createSlice({
 
         if (!payload || !Array.isArray(payload.orders)) return;
         state.orders = payload.orders;
+        state.error = null;
       });
   }
 });
